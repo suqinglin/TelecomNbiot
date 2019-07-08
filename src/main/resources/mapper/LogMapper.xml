@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nbiot.telecom.mapper.LogMapper">
+
+    <sql id="Base_Column_List">
+        l_id AS id,
+        l_volt AS volt,
+        l_rssi AS rssi,
+        l_type AS type,
+        l_face_cnt AS faceCnt,
+        l_card_cnt AS cardCnt,
+        l_time AS time
+    </sql>
+
+    <insert id="saveLog" parameterType="com.nbiot.telecom.model.LogInfo">
+        insert xy_nb_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != 0">
+                l_id,
+            </if>
+            <if test="volt != 0">
+                l_volt,
+            </if>
+            <if test="rssi != 0">
+                l_rssi,
+            </if>
+            <if test="type != 0">
+                l_type,
+            </if>
+            <if test="faceCnt != 0">
+                l_face_cnt,
+            </if>
+            <if test="cardCnt != 0">
+                l_card_cnt,
+            </if>
+            <if test="time != 0">
+                l_time
+            </if>
+        </trim>
+        <trim prefix="value (" suffix=")" suffixOverrides=",">
+            <if test="id != 0">
+                #{id},
+            </if>
+            <if test="volt != 0">
+                #{volt},
+            </if>
+            <if test="rssi != 0">
+                #{rssi},
+            </if>
+            <if test="type != 0">
+                #{type},
+            </if>
+            <if test="faceCnt != 0">
+                #{faceCnt},
+            </if>
+            <if test="cardCnt != 0">
+                #{cardCnt},
+            </if>
+            <if test="time != 0">
+                #{time}
+            </if>
+        </trim>
+    </insert>
+
+    <select id="getLogs" resultType="com.nbiot.telecom.model.LogInfo">
+        select
+        <include refid="Base_Column_List" />
+        from xy_nb_log
+        where l_time &gt;= #{startTime} and l_time &lt;= #{endTime}
+    </select>
+
+    <select id="getMaxId" resultType="string">
+        select
+        MAX(l_id)
+        from
+        xy_nb_log
+    </select>
+</mapper>

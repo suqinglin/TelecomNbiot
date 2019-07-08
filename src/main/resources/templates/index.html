@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://www.thymeleaf.org" lang="en">
+<head>
+    <meta http-equiv="Content-Type" charset="text/html; UTF-8">
+    <title>index</title>
+</head>
+<body>
+
+    <h1>Authentication</h1>
+    <form action="#" th:action="@{/authentication}" th:object="${auth}" method="post">
+        <p>AppId:<input type="text" th:field="*{appId}" /></p>
+        <p>Secret:<input type="text" th:field="*{secret}" /></p>
+        <p><input type="submit" value="Submit"></p>
+    </form>
+
+    <p th:text="'result: ' + ${result}" />
+
+    <!--<p th:unless = ${result != null}>-->
+    <h1>CreateDeviceCommand</h1>
+        <form action="#" th:action="@{/createDeviceCommand}" th:object="${command}" method="post">
+            <p>AuthToken:<input type="text" th:field="*{authToken}" /></p>
+            <p>DeviceId:<input type="text" th:field="*{deviceId}" /></p>
+            <p>ServiceId:<input type="text" th:field="*{serviceId}" /></p>
+            <p>Method:<input type="text" th:field="*{method}" /></p>
+            <p>Data:<input type="text" th:field="*{data}" /></p>
+            <p><input type="submit" value="Send"></p>
+        </form>
+
+    <p th:text="'result: ' + ${commandResult}" />
+    <!--</p>-->
+</body>
+</html>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nbiot.telecom.mapper.CommandMapper">
+
+    <sql id="Base_Column_List">
+        c_uuid AS uuid,
+        c_cmd_id AS cmdId,
+        c_req_cmd AS reqCmd,
+        c_ack_cmd AS ackCmd,
+        c_device_id AS deviceId,
+        c_data_id AS dataId,
+        c_time AS time,
+        c_status AS status,
+        c_result AS result
+    </sql>
+
+    <insert id="saveCommand" parameterType="com.nbiot.telecom.model.CommandInfo">
+        insert xy_nb_command
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uuid != 0">
+                c_uuid,
+            </if>
+            <if test="cmdId != null">
+                c_cmd_id,
+            </if>
+            <if test="reqCmd != 0">
+                c_req_cmd,
+            </if>
+            <if test="ackCmd != 0">
+                c_ack_cmd,
+            </if>
+            <if test="deviceId != null">
+                c_device_id,
+            </if>
+            <if test="dataId != null">
+                c_data_id,
+            </if>
+            <if test="time != 0">
+                c_time,
+            </if>
+            <if test="status != null">
+                c_status,
+            </if>
+            <if test="result != null">
+                c_result
+            </if>
+        </trim>
+        <trim prefix="value (" suffix=")" suffixOverrides=",">
+            <if test="uuid != 0">
+                #{uuid},
+            </if>
+            <if test="cmdId != null">
+                #{cmdId},
+            </if>
+            <if test="reqCmd != 0">
+                #{reqCmd},
+            </if>
+            <if test="ackCmd != 0">
+                #{ackCmd},
+            </if>
+            <if test="deviceId != null">
+                #{deviceId},
+            </if>
+            <if test="dataId != null">
+                #{dataId},
+            </if>
+            <if test="time != 0">
+                #{time},
+            </if>
+            <if test="status != null">
+                #{status},
+            </if>
+            <if test="result != null">
+                #{result}
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateCommandByUUID" parameterType="com.nbiot.telecom.model.CommandInfo">
+        update xy_nb_command
+        <set>
+            <if test="reqCmd != 0">
+                c_req_cmd = #{reqCmd},
+            </if>
+            <if test="ackCmd != 0">
+                c_ack_cmd = #{ackCmd},
+            </if>
+            <if test="deviceId != null">
+                c_device_id = #{deviceId},
+            </if>
+            <if test="dataId != null">
+                c_data_id = #{dataId},
+            </if>
+            <if test="time != 0">
+                c_time = #{time},
+            </if>
+            <if test="status != null">
+                c_status = #{status},
+            </if>
+            <if test="result != null">
+                c_result = #{result}
+            </if>
+        </set>
+        where c_uuid = #{uuid}
+    </update>
+
+    <update id="updateCommandStatus" parameterType="com.nbiot.telecom.model.CommandInfo">
+        update xy_nb_command
+        <set>
+            <if test="status != null">
+                c_status = #{status}
+            </if>
+        </set>
+        where c_cmd_id = #{cmdId}
+    </update>
+
+    <select id="getCommandByUuid" parameterType="long" resultType="com.nbiot.telecom.model.CommandInfo">
+        select
+        <include refid="Base_Column_List" />
+        from xy_nb_command
+        <where>
+            c_uuid = #{uuid}
+        </where>
+        LIMIT 1
+    </select>
+</mapper>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nbiot.telecom.mapper.RegisterDeviceMapper">
+
+    <sql id="Base_Column_List">
+        rd_id AS id,
+        rd_device_id AS deviceId,
+        rd_app_id AS appId,
+        rd_imei AS imei,
+        rd_name AS name,
+        rd_manuf_id AS manufId,
+        rd_manuf_name AS manufName,
+        rd_device_type AS deviceType,
+        rd_model AS model,
+        rd_protocal_type AS protocalType
+    </sql>
+
+    <insert id="saveDevice" parameterType="com.nbiot.telecom.model.DeviceInfo">
+        insert xy_nb_register_device
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != 0">
+                rd_id,
+            </if>
+            <if test="deviceId != null">
+                rd_device_id,
+            </if>
+            <if test="appId != null">
+                rd_app_id,
+            </if>
+            <if test="imei != null">
+                rd_imei,
+            </if>
+            <if test="name != null">
+                rd_name,
+            </if>
+            <if test="manufId != null">
+                rd_manuf_id,
+            </if>
+            <if test="manufName != null">
+                rd_manuf_name,
+            </if>
+            <if test="deviceType != null">
+                rd_device_type,
+            </if>
+            <if test="model != null">
+                rd_model,
+            </if>
+            <if test="protocalType != null">
+                rd_protocal_type
+            </if>
+        </trim>
+        <trim prefix="value (" suffix=")" suffixOverrides=",">
+            <if test="id != 0">
+                #{id},
+            </if>
+            <if test="deviceId != null">
+                #{deviceId},
+            </if>
+            <if test="appId != null">
+                #{appId},
+            </if>
+            <if test="imei != null">
+                #{imei},
+            </if>
+            <if test="name != null">
+                #{name},
+            </if>
+            <if test="manufId != null">
+                #{manufId},
+            </if>
+            <if test="manufName != null">
+                #{manufName},
+            </if>
+            <if test="deviceType != null">
+                #{deviceType},
+            </if>
+            <if test="model != null">
+                #{model},
+            </if>
+            <if test="protocalType != null">
+                #{protocalType}
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateDevice" parameterType="com.nbiot.telecom.model.DeviceInfo">
+        update xy_nb_register_device
+        <set>
+            <if test="appId != null">
+                rd_app_id = #{appId},
+            </if>
+            <if test="imei != null">
+                rd_imei = #{imei},
+            </if>
+            <if test="name != null">
+                rd_name = #{name},
+            </if>
+            <if test="manufId != null">
+                rd_manuf_id = #{manufId},
+            </if>
+            <if test="manufName != null">
+                rd_manuf_name = #{manufName},
+            </if>
+            <if test="deviceType != null">
+                rd_device_type = #{deviceType},
+            </if>
+            <if test="model != null">
+                rd_model = #{model},
+            </if>
+            <if test="protocalType != null">
+                rd_protocal_type = #{protocalType}
+            </if>
+        </set>
+        where rd_device_id = #{deviceId}
+    </update>
+
+    <select id="getMaxId" resultType="string">
+        select
+        MAX(rd_id)
+        from
+        xy_nb_register_device
+    </select>
+
+    <select id="getRegisterDevices" resultType="com.nbiot.telecom.model.DeviceInfo">
+        select
+        <include refid="Base_Column_List" />
+        from xy_nb_register_device
+    </select>
+</mapper>
