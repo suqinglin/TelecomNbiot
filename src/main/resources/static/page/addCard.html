@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Card</title>
+    <script type="text/javascript" src="../js/jquery-3.4.1.js" ></script>
+    <script type="text/javascript" src="../js/addCard.js" ></script>
+</head>
+<body>
+<form action="" method="post">
+    <h2>Add Card</h2>
+    <table>
+        <tr>
+            <td>Device ID:</td>
+            <td><input style="width:300px" type="text" id="deviceId" name="deviceId"></td>
+        </tr>
+        <tr>
+            <td>Card ID:</td>
+            <td><input style="width:300px" type="text" id="cardId" name="cardId"></td>
+        </tr>
+        <tr>
+            <td>Card Data:</td>
+            <td><input style="width:300px" type="text" id="cardData" name="cardData" /></td>
+        </tr>
+        <tr>
+            <td>DEffect Time:</td>
+            <td><input style="width:300px" type="text" id="effectTime" name="effectTime"></td>
+        </tr>
+        <tr>
+            <td>Failure Time:</td>
+            <td><input style="width:300px" type="text" id="failureTime" name="failureTime"></td>
+        </tr>
+        <tr>
+            <td><input type="button" value="Add" onclick="addCard()" /></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
